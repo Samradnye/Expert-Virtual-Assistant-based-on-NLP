@@ -1,0 +1,297 @@
+import pyttsx3
+import speech_recognition as sr
+import webbrowser
+import pywhatkit
+import os
+import wikipedia
+import pyautogui
+import keyboard
+import pyjokes
+import datetime
+from playsound import playsound
+from googletrans import Translator
+import Automations
+#from PyDictionary import PyDictionary as Diction
+
+Assistant= pyttsx3.init('sapi5')
+voices= Assistant.getProperty('voices')
+print(voices)
+Assistant.setProperty('voices',voices)
+def Speak(audio):
+    print("  ")
+    Assistant.say(audio)
+    Assistant.runAndWait()    
+def takeCommand():
+    command= sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        command.pause_threshold= 1
+        audio= command.listen(source)
+        try:
+            print("Recognizing...")
+            query= command.recognize_google(audio, language='en-in')
+            print(f"You said: {query}")
+        except Exception as Error:
+            return "none"
+        return query.lower()
+
+def TaskExe():
+    Speak("hello, I am Evaan. How may i help you?")
+    def OpenApps():
+        Speak("okay ma'am, wait a sec!")
+        if 'code' in query:
+            os.startfile('VScode file path')
+        elif 'whatsapp' in query:
+            os.startfile('Whatsapp exe file path')
+        elif 'si' in query:
+            os.startfile('Path')
+        elif 'thonny' in query:
+            os.startfile('Path')
+        elif 'chrome' in query:
+            os.startfile('Path')
+        elif 'facebook' in query:
+            webbrowser.open('https://www.facebook.com/')
+        elif 'google' in query:
+            webbrowser.open('https://www.google.com/')
+        elif 'youtube' in query:
+            webbrowser.open('https://www.youtube.com/')
+        elif 'instagram' in query:
+            webbrowser.open('https://www.instagram.com/')
+        elif 'maps' in query:
+            webbrowser.open('https://www.google.com/maps/@19.877352,75.3160458,14z')
+        elif 'youtube' in query:
+            webbrowser.open('https://www.youtube.com/')
+        elif 'documents' in query:
+            os.startfile('Path')
+        Speak ('your command has been successfully executed')
+    
+    def YoutubeAuto():
+        Speak("Whats your command?")
+        comm= takeCommand()
+        if 'pause' in comm:
+            keyboard.press('space bar')
+        elif 'resume' in comm:
+            keyboard.press('space bar')
+        elif 'restart' in comm:
+            keyboard.press('0')
+        elif 'mute' in comm:
+            keyboard.press('m')
+        elif 'skip' in comm:
+            keyboard.press('l')
+        elif 'back' in comm:
+            keyboard.press('j')
+        elif 'full screen' in comm:
+            keyboard.press('f')
+        elif 'film mode' in comm:
+            keyboard.press('t')
+        Speak("Done ma'am")
+    def TakeHindi():
+         command= sr.Recognizer()
+         with sr.Microphone() as source:
+             print("Listening...")
+             command.pause_threshold= 1
+             audio= command.listen(source)
+             try:
+                 print("Recognizing...")
+                 query= command.recognize_google(audio, language='hi')
+                 print(f"You said: {query}")
+             except Exception as Error:
+                 return "none"
+             return query.lower()
+    def Tran():
+        Speak("Tell me the line")
+        line= TakeHindi()
+        traslate= Translator()
+        result= traslate.translate(line)
+        Text= result.text
+        Speak("the translation for this line is: "+Text)
+        
+    def ChromeAuto():
+        Speak("Chrome Automation started!")
+        command= takeCommand()
+        if 'close tab' in command:
+            keyboard.press_and_release('ctrl+w')
+        elif 'new tab' in command:
+            keyboard.press_and_release('ctrl+t')
+        elif 'new window' in command:
+            keyboard.pres_and_release('ctrl+n')
+        elif 'history' in command:
+            keyboard.press_and_release('ctrl+h')
+        elif 'bookmarks' in command:
+            keyboard.press_and_release('ctrl+shift+o')
+        elif 'print the page' in command:
+            keyboard.press_and_release('ctrl+p')
+        elif 'save the page' in command:
+            keyboard.press_and_release('ctrl+s')
+    
+        
+    while True:
+        #send a whatsapp Speak("hello miss chintamani,i am Evaan, how may i help you")
+        query= takeCommand()
+        if 'hello'in query:
+            Speak("hello ma'am")
+        
+        elif'hey buddy' in query:
+            Speak("yes ma'am")
+        elif 'who are you' in query:
+            Speak("I am Expert Virtual Assistant based on NLP, short for Evaan. And also a beautiful creation by my master miss chintamani")
+        elif'you need rest' in query:
+            Speak("Okay Ma'am, if you need anything, just call me")
+            break
+        elif'how are you' in query:
+            Speak('I am doing great, what about you?')
+        elif 'great' in query:
+            Speak('good to hear that!')
+        elif 'seriously' in query:
+            Speak("i am afraid, that is it")
+        elif 'youtube search' in query:
+            Speak("Okay ma'am, This is what i found")
+            query= query.replace("Evaan","")
+            query= query.replace("youtube serach","")
+            web= 'https://www.youtube.com/results?search_query=' + query
+            webbrowser.open(web)
+            Speak("done ma'am")
+        elif 'google search' in query:
+            Speak("this is what i found ma'am")
+            query= query.replace("Evaan","")
+            query= query.replace("youtube serach","")
+            pywhatkit.search(query)
+            Speak("Done ma'am")
+        elif 'website' in query:
+            Speak("okay ma'am, Launching...")
+            query= query.replace("Evaan","")
+            query= query.replace("website","")
+            query= query.replace(" ","")
+            web1= query.replace("open","")
+            web2= 'https://www.'+web1+'.com'
+            webbrowser.open(web2)
+            Speak('your search is launched!')
+        elif 'launch' in query:
+            Speak("tell me the name of the site")
+            name= takeCommand()
+            web= 'https://www.'+ name +'.com'
+            webbrowser.open(web)
+            Speak("done ma'am")
+        elif 'play music' in query:
+            music_dir= 'Music dir path'
+            songs= os.listdir(music_dir)
+            os.startfile(os.path.join(music_dir,songs[0]))
+        elif 'wikipedia' in query:
+            Speak("searching wikipedia...")
+            query= query.replace("Evaan","")
+            query= query.replace("wikipedia","")
+            wiki= wikipedia.summary(query,3)
+            Speak(f"According to wikipedia: {wiki}")
+        elif 'screenshot' in query:
+            Speak("okay ma'am, what should i name that file")
+            path= takeCommand()
+            path1name= path+".png"
+            path1= 'Path to store SS'
+            kk= pyautogui.screenshot()
+            kk.save(path1)
+            os.startfile("Path where SS is stored")
+            Speak("here is your SS")  
+        elif 'open facebook' in query:
+            OpenApps()
+        elif 'open instagram' in query:
+            OpenApps()
+        elif 'open maps' in query:
+            OpenApps()
+        elif 'open chrome' in query:
+            OpenApps()
+        elif 'open thonny' in query:
+            OpenApps()
+        elif 'open si' in query:
+            OpenApps()
+        elif 'open youtube' in query:
+            OpenApps()
+        elif 'open whatsapp' in query:
+            OpenApps()
+        elif 'open code' in query:
+            OpenApps()
+        elif 'pause' in query:
+            keyboard.press('space bar')
+        elif 'restart' in query:
+            keyboard.press('0')
+        elif 'mute' in query:
+            keyboard.press('m')
+        elif 'skip' in query:
+            keyboard.press('l')
+        elif 'back' in query:
+            keyboard.press('j')
+        elif 'resume' in query:
+            keyboard.press('space bar')
+        elif 'full screen' in query:
+            keyboard.press('f')
+        elif 'film mode' in query:
+            keyboard.press('t')
+        elif 'tools' in query:
+            YoutubeAuto()
+        elif 'close tab' in query:
+            keyboard.press_and_release('ctrl+w')
+        elif 'new tab' in query:
+            keyboard.press_and_release('ctrl+t')
+        elif 'new window' in query:
+            keyboard.press_and_release('ctrl+n')
+        elif 'history' in query:
+            keyboard.press_and_release('ctrl+h')
+        elif 'bookmarks' in query:
+            keyboard.press_and_release('ctrl+shift+o')
+        elif 'print the page' in query:
+            keyboard.press_and_release('ctrl+p')
+        elif 'save the page' in query:
+            keyboard.press_and_release('ctrl+s')
+        elif 'documents' in query:
+            OpenApps()
+        elif 'chrome automation' in query:
+            ChromeAuto()
+        elif 'jokes' in query:
+            get= pyjokes.get_joke()
+            Speak(get)
+        elif 'repeat my words' in query:
+            Speak("Speak ma'am")
+            jj= takeCommand()
+            Speak(f"You said: {jj}")
+        elif 'alarm' in query:
+            Speak("Enter the time!")
+            time= input(": Enter the time :")
+            while True:
+                Time_Ac= datetime.datetime.now()
+                now= Time_Ac.strftime("%H:%M:%S")
+                if now== time:
+                    Speak("time to wake up ma'am")
+                    playsound('galaxy.mp3')
+                    Speak("Alarm closed!")
+                elif now>time:
+                    break
+        elif 'translator' in query:
+            Tran()
+        elif 'whatsapp message' in query:
+            name= query.replace("send whatsapp message","")
+            name= name.replace("send","")
+            name= name.replace("to","")
+            Name= str(name)
+            Speak(f"what is the message for {Name}")
+            MSG= takeCommand()
+            from Automations import WhatsappMsg
+            WhatsappMsg(Name,MSG)
+        elif 'call' in query:
+            from Automations import WhatsappCall
+            name= query.replace("call","")
+            name= name.replace("Evaan","")
+            Name= str(name)
+            WhatsappCall(Name)
+        elif 'show chat' in query:
+            Speak("with Whom?")
+            name= takeCommand()
+            from Automations import WhatsappChat
+            WhatsappChat(name)
+        elif 'video' in query:
+            from Automations import WhatsappVideo
+            name= query.replace("make video call","")
+            name= name.replace("Evaan","")
+            name= name.replace("to","")
+            Name= str(name)
+            WhatsappVideo(Name)
+        
+TaskExe()

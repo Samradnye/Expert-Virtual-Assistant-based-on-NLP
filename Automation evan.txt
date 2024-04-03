@@ -1,0 +1,56 @@
+from os import startfile
+from pyautogui import click
+from keyboard import press
+from keyboard import write
+from time import sleep
+
+def WhatsappMsg(name, message):
+    startfile("whatsapp exe file path")
+    sleep(10)
+    click(x=103, y=141)
+    sleep(1)
+    write(name)
+    sleep(1)
+    click(x=262, y=324)
+    sleep(1)
+    click(x=785, y=985)
+    sleep(1)
+    write(message)
+    press('enter')
+def WhatsappCall(name):
+    startfile("whatsapp exe file path")
+    sleep(10)
+    click(x=103, y=141)
+    sleep(1)
+    write(name)
+    sleep(1)
+    click(x=262, y=324)
+    sleep(1)
+    click(x=1720, y=76)
+    sleep(1)
+    
+#WhatsappMsg('Dadu','message')
+#WhatsappCall('Archana')
+def WhatsappChat(name):
+    startfile("whatsapp exe file path")
+    sleep(10)
+    click(x=103, y=141)
+    sleep(1)
+    write(name)
+    sleep(1)
+    click(x=262, y=324)
+    sleep(1)
+   
+#WhatsappChat('Dadu')
+def WhatsappVideo(name):
+    startfile("whatsapp exe file path")
+    sleep(10)
+    click(x=103, y=141)
+    sleep(1)
+    write(name)
+    sleep(1)
+    click(x=262, y=324)
+    sleep(1)
+    click(x=1658, y=73)
+    sleep(1)
+    
